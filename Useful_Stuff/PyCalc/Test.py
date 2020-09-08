@@ -1,0 +1,3 @@
+what = None
+
+print(what)
