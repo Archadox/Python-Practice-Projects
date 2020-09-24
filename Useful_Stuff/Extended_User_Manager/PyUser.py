@@ -20,7 +20,7 @@ if path.exists(userName + '_Access_File.py') == True: #Checks to see if the User
             print(' ')
             tries2 = 0 #Sets the 'tries2' variable to the Integer 0       
             
-            while True: #Another 'while True' 
+            while True: #Another 'while True'
                 print(' ')
                 print('1) Read Notes') #List of possible actions by the user
                 print('2) Edit Notes')
@@ -48,15 +48,14 @@ if path.exists(userName + '_Access_File.py') == True: #Checks to see if the User
                             print('Please try again')
                             
                 elif noteManager == '2': #Edits notes
-                    notelist = os.listdir('William_Note_Directory')
-                    print(notelist)
-                    noteview = input('Which note would you like to edit?: ')
-                    os.system('nano ' + userName + '_Note_Directory/' + noteview)
-                    #Set aside for editing notes
+                    notelist = os.listdir('William_Note_Directory') #Lists the directory 'William_Note_Directory' and saves it in variable 'notelist'
+                    print(notelist) #Prints the variable 'notelist'
+                    noteview = input('Which note would you like to edit?: ') #Asks the user what note they want to edit and saves the input in the variable 'noteview'
+                    os.system('nano ' + userName + '_Note_Directory/' + noteview) #Opens the specified note with nano
                     
                 elif noteManager == '3': #Creates notes
-                    noteTitle = input('What would you like to name your note? (No spaces or special characters): ')
-                    os.listdir(userName + '_Note_Directory')                
+                    noteTitle = input('What would you like to name your note? (No spaces or special characters): ') #Asks what the user what they want to name the note and saves it in the variable 'noteTitle'
+                    os.listdir(userName + '_Note_Directory') #Lists the user's specific Note Directory                 
                     os.system('nano ' + userName + '_Note_Directory/' + noteTitle)
                     noteList = open(r'Note_List_Registry','r+')
                 elif noteManager == '4': #Lists notes
