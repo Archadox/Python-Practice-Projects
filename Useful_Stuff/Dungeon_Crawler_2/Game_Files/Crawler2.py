@@ -16,7 +16,7 @@ def original_intro():
             elif upperino == 2:
                 print('You rise with a rusted sword in your hand and a key on your chest\n')
                 upperino = 3
-                time.sleep(.5
+                time.sleep(.5)
 
             elif upperino == 3:
                 print('Bla bla bla, you need to get powers to save an ancient kingdom\n')
