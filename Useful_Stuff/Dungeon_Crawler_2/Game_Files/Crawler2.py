@@ -1,38 +1,64 @@
 #Seeing if the testing branch works
+#Going to try to replace the keyboard module with a better one that doesn't require root
+#Also, the current original_intro implementation is ass, so this will hopefully tighten it up
+
 import os, time
-import keyboard #A terrible choice in module because now the entire progrm has to be run as root
+from pynput.keyboard import Key, Listener
+#import keyboard
+#A terrible choice in module because now the entire progrm has to be run as root
 #Not good enough yet to try the alternatives
 
+def on_press(key):
+    # print('{0} pressed'.format(
+    #     key))
+    pass
+
+def on_release(key):
+    print('{0} release'.format(
+        key))
+    if key == Key.esc:
+        # Stop listener
+        return False
+
+def listen_activator():
+    with Listener(
+            on_press=on_press,
+            on_release=on_release) as listener:
+        listener.join()
+
 def original_intro():
-    #Probably doesn't need to be a function but whatever
-    #Designed to be executed by the charcre function after a successful character creation
-    upperino = 1
-    while True:
-        if keyboard.is_pressed('space'):
-            if upperino == 1:
+    print('Press SPACE to advance the text\n')
+    def spacey(key):
+        global uppity
+        if key == Key.esc:
+            # Stop listener
+            return False
+        elif key == Key.space:
+            try:
+                if uppity == 1:
+                    print('Your grave stirrs as you awaken from your near eternal slumber\n')
+                    uppity = uppity+1
+            except NameError:
+                uppity = 1
+            if uppity == 1:
                 print('Your grave stirrs as you awaken from your near eternal slumber\n')
-                upperino = 2
-                time.sleep(.5)
-
-            elif upperino == 2:
+                uppity = uppity+1
+            elif uppity == 2:
                 print('You rise with a rusted sword in your hand and a key on your chest\n')
-                upperino = 3
-                time.sleep(.5)
-
-            elif upperino == 3:
+                uppity = uppity+1
+            elif uppity == 3:
                 print('Bla bla bla, you need to get powers to save an ancient kingdom\n')
-                upperino = 4
-                time.sleep(.5)
-
-            elif upperino == 4:
+                uppity = uppity+1
+            elif uppity == 4:
                 print('You enter a nearby village and purchase clothes with the ancient gold in your coffin\n')
-                upperino = 5
-                time.sleep(.5)
-
-            elif upperino == 5:
-                upperino = None
-                #time.sleep(.1)
-                break
+                uppity = uppity+1
+            elif uppity == 5:
+                uppity = None
+                return False
+    with Listener(
+            on_press=on_press,
+            on_release=spacey) as listener:
+        listener.join()
 
 def intro():
     #The intro that plays whenever the game is begun
