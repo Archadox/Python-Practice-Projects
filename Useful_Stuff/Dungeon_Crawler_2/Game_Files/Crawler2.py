@@ -1,6 +1,6 @@
 import os, time
 import keyboard #A terrible choice in module because now the entire progrm has to be run as root
-#Not good enough yet to try the alternatives     
+#Not good enough yet to try the alternatives
 
 def original_intro():
     #Probably doesn't need to be a function but whatever
@@ -11,22 +11,22 @@ def original_intro():
             if upperino == 1:
                 print('Your grave stirrs as you awaken from your near eternal slumber\n')
                 upperino = 2
-                time.sleep(.1)
+                time.sleep(.5)
 
             elif upperino == 2:
                 print('You rise with a rusted sword in your hand and a key on your chest\n')
                 upperino = 3
-                time.sleep(.1)
+                time.sleep(.5
 
             elif upperino == 3:
                 print('Bla bla bla, you need to get powers to save an ancient kingdom\n')
                 upperino = 4
-                time.sleep(.1)
+                time.sleep(.5)
 
             elif upperino == 4:
                 print('You enter a nearby village and purchase clothes with the ancient gold in your coffin\n')
                 upperino = 5
-                time.sleep(.1)
+                time.sleep(.5)
 
             elif upperino == 5:
                 upperino = None
