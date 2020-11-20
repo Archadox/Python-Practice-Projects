@@ -1,7 +1,7 @@
-#Seeing if the testing branch works
-
 import os, time
 from pynput.keyboard import Key, Listener
+
+gameDir = '/home/william/Python-Practice-Projects/Useful_Stuff/Dungeon_Crawler_2/'
 
 def on_press(key):
     # print('{0} pressed'.format(
@@ -63,53 +63,43 @@ def namecheck():
     global name
     name = input('What is your travellers name?: ')
     try:
-        with open ('../User_Files/'+name+'/'+name) as charfile:
+        with open (gameDir+'User_Files/'+name+'/'+name) as charfile:
             print(charfile.readlines())
     except FileNotFoundError:
         charcre()
 
 def namesave():
     #Saves the name of the current player in a temporary file
-    namefileer = open('../Temporary_Files/Current_Player_Name', 'w+')
+    namefileer = open(gameDir+'Temporary_Files/Current_Player_Name', 'w+')
     namefileer.write(name)
     namefileer.close()
 
 def charcre():
-    #A shittily named function to create the player's character if the character doesn't exist
-    # global name
-    # name = input('What is your travellers name?: ')
-    # try:
-    #     with open (name+'/'+name) as charfile:
-    #         print(charfile.readlines())
-    # except FileNotFoundError:
         butt = input('Would you like to create the character ' + name + ' now? YES/NO: ')
         if butt=='YES':
-            os.mkdir('../User_Files/'+name)
-
-            charfile = open('../User_Files/'+name+'/'+name, 'w+')
-            # eldersup = open('../User_Files/'+name+'/eldersup', 'w+')
-            # eldersup.write('0')
-            # arrival = open('../User_Files/'+name+'/arrival', 'w+')
-            # arrival.write('0')
-            # villagestatus = open('../User_Files/'+name+'/villagestatus', 'w+')
-            # villagestatus.write('1')
+            os.mkdir(gameDir+'User_Files/'+name)
+            charfile = open(gameDir+'User_Files/'+name+'/'+name, 'w+')
             print('')
             while True:
                 corey = input('Would you like this character to be Hardcore? You would lose your save upon death. YES/NO: ')
                 if corey == 'YES':
                     print('Don\'t make the wrong choice!')
-                    charfile.write('../User_Files/'+name+' \n0\nAlive\nHardcore')
+                    charfile.write(gameDir+'User_Files/'+name+' \n0\nAlive\nHardcore')
                     charfile.close()
                     break
                 elif corey == 'NO':
                     print('Okay, no Hardcore for you')
-                    charfile.write('../User_Files/'+name+' \n0\nAlive\nNormalcore')
+                    charfile.write(gameDir+'User_Files/'+name+' \n0\nAlive\nNormalcore')
                     charfile.close()
                     break
                 else:
                     print('')
                     print('Input invalid. Please try again')
                     print('')
+
+        elif butt == 'NO':
+            print('Maybe another time')
+            exit()
 
 def inventory_check():
     #A function to check the inventory of the player
@@ -154,6 +144,6 @@ def start_village():
             on_release=spacey) as listener:
         listener.join()
 
-#intro() #Introducing instructions, plays every time the game is started
-#namecheck() #Asks the user's name, if name doesn't exist, calls upon the charcre function to create it
-original_intro()
+intro() #Introducing instructions, plays every time the game is started
+namecheck() #Asks the user's name, if name doesn't exist, calls upon the charcre function to create it
+#original_intro()
