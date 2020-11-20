@@ -46,11 +46,8 @@ def original_intro():
                 uppity = uppity+1
             elif uppity == 4:
                 print('You enter a nearby village and purchase clothes with the ancient gold in your coffin\n')
-                uppity = uppity+1
-            elif uppity == 5:
                 uppity = None
                 start_village()
-                #return False
 
     with Listener(
             on_press=on_press,
@@ -137,7 +134,7 @@ def start_village():
             except NameError:
                 uppity2 = 1
             if uppity2 == 1:
-                print('The village seems deserted apart from these silent watchers that seem to poke their heads behing the bricks the moment your head swings in their direction\n')
+                print('The village seems deserted apart from these silent watchers \nthat seem to poke their heads behind the bricks the moment your head swings in their direction\n')
                 uppity2 = uppity2+1
             elif uppity2 == 2:
                 print('You see a strange well, no bucket or water, but a ladder, leading into a seemingly endless depth\n')
