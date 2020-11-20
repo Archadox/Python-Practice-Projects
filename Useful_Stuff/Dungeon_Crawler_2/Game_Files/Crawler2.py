@@ -1,12 +1,7 @@
 #Seeing if the testing branch works
-#Going to try to replace the keyboard module with a better one that doesn't require root
-#Also, the current original_intro implementation is ass, so this will hopefully tighten it up
 
 import os, time
 from pynput.keyboard import Key, Listener
-#import keyboard
-#A terrible choice in module because now the entire progrm has to be run as root
-#Not good enough yet to try the alternatives
 
 def on_press(key):
     # print('{0} pressed'.format(
@@ -54,7 +49,9 @@ def original_intro():
                 uppity = uppity+1
             elif uppity == 5:
                 uppity = None
-                return False
+                start_village()
+                #return False
+
     with Listener(
             on_press=on_press,
             on_release=spacey) as listener:
@@ -62,10 +59,8 @@ def original_intro():
 
 def intro():
     #The intro that plays whenever the game is begun
-    print('Type HELP to get a list of actions you can perform')
-    print('')
-    print('Always type actions in all caps')
-    print('')
+    print('Type HELP to get a list of actions you can perform\n')
+    print('Always type actions in all caps\n')
 
 def namecheck():
     global name
@@ -127,8 +122,40 @@ def game_help():
     #A function to show the list of actions the player can perform
     pass
 
-#def start_village()
+def start_village():
+    #The first village the player sees
+    def spacey(key):
+        if key == Key.esc:
+            global uppity2
+            # Stop listener
+            return False
+        elif key == Key.space:
+            try:
+                if uppity2 == 1:
+                    print('Your grave stirrs as you awaken from your near eternal slumber\n')
+                    uppity2 = uppity2+1
+            except NameError:
+                uppity2 = 1
+            if uppity2 == 1:
+                print('The village seems deserted apart from these silent watchers that seem to poke their heads behing the bricks the moment your head swings in their direction\n')
+                uppity2 = uppity2+1
+            elif uppity2 == 2:
+                print('You see a strange well, no bucket or water, but a ladder, leading into a seemingly endless depth\n')
+                uppity2 = uppity2+1
+            elif uppity2 == 3:
+                print('One of the figures is standing near the well, too far to fully make out their features, but they clearly stare in your direction\n')
+                uppity2 = uppity2+1
+            elif uppity2 == 4:
+                print('You begin walking over to the well, determined to find the secrets that hide within\n')
+                uppity2 = uppity2+1
+            elif uppity2 == 5:
+                uppity2 = None
+                return False
 
+    with Listener(
+            on_press=on_press,
+            on_release=spacey) as listener:
+        listener.join()
 
 #intro() #Introducing instructions, plays every time the game is started
 #namecheck() #Asks the user's name, if name doesn't exist, calls upon the charcre function to create it
