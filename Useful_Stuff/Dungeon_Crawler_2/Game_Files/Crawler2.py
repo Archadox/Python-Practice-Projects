@@ -39,7 +39,7 @@ def original_intro():
                 print('Your grave stirrs as you awaken from your near eternal slumber\n')
                 uppity = uppity+1
             elif uppity == 2:
-                print('You rise with a rusted sword in your hand and a key on your chest\n')
+                print('You rise from your resting place with a rusted sword in your hand\n')
                 uppity = uppity+1
             elif uppity == 3:
                 print('Bla bla bla, you need to get powers to save an ancient kingdom\n')
@@ -65,6 +65,7 @@ def namecheck():
     try:
         with open (gameDir+'User_Files/'+name+'/'+name) as charfile:
             print(charfile.readlines())
+            start_village()
     except FileNotFoundError:
         charcre()
 
@@ -79,6 +80,8 @@ def charcre():
         if butt=='YES':
             os.mkdir(gameDir+'User_Files/'+name)
             charfile = open(gameDir+'User_Files/'+name+'/'+name, 'w+')
+            eldersup = open(gameDir+'User_Files/'+name+'/eldersup', 'w+')
+            eldersup.write('0')
             print('')
             while True:
                 corey = input('Would you like this character to be Hardcore? You would lose your save upon death. YES/NO: ')
@@ -86,12 +89,12 @@ def charcre():
                     print('Don\'t make the wrong choice!')
                     charfile.write(gameDir+'User_Files/'+name+' \n0\nAlive\nHardcore')
                     charfile.close()
-                    break
+                    original_intro()
                 elif corey == 'NO':
                     print('Okay, no Hardcore for you')
                     charfile.write(gameDir+'User_Files/'+name+' \n0\nAlive\nNormalcore')
                     charfile.close()
-                    break
+                    original_intro()
                 else:
                     print('')
                     print('Input invalid. Please try again')
@@ -143,6 +146,62 @@ def start_village():
             on_press=on_press,
             on_release=spacey) as listener:
         listener.join()
+
+def village1():
+    relder = input('Do you speak with the ELDER, or decend into the RUINS?: ')
+    if relder==('RUINS'):
+        eldersup = open(gameDir+'User_Files/'+name+'/eldersup', 'r')
+        var1 = eldersup.read()
+        eldersup.close()
+        if var1 == '0':
+            eldersup = open(gameDir+'User_Files/'+name+'/eldersup', 'w+')
+            eldersup.write('1')
+        else:
+            pass
+    elif relder==('ELDER'):
+        def spacey(key):
+            if key == Key.esc:
+                global uppity3
+                # Stop listener
+                return False
+            elif key == Key.space:
+                try:
+                    if uppity3 == 1:
+                        print('The elder being begins speaking, a aged tinge to his old and weary voice\n')
+                        uppity3 = uppity3+1
+                except NameError:
+                    uppity3 = 1
+                if uppity3 == 1:
+                    print('\"I have seen you lurking this old decrepid town, many of my decendants have watched you with a close eye and careful step\"\n')
+                    uppity3 = uppity3+1
+                elif uppity3 == 2:
+                    print('\"We are the Voided. You are the first Whole being we have witness in millenia, and we have been watching for millenia\"\n')
+                    uppity3 = uppity3+1
+                elif uppity3 == 3:
+                    print('\"We are cursed to walk this wretched wasteland with no emotions but pain, guilt, and the sorrow of our empty souls \" \n')
+                    uppity3 = uppity3+1
+                elif uppity3 == 4:
+                    print('\"Will you decend into the ruins to help free our chained and empty bodies from this mortal hellscape?\"\n')
+                    uppity3 = uppity3+1
+                elif uppity3 == 5:
+                    print('The elder Void filled with hope for his people\'s souls, you decide to honor his desperate plea\n')
+                    uppity3 = uppity3+1
+                elif uppity3 == 6:
+                    print('The elder hands you a key, you will need it to access the door that seals the ruins at the bottom of the ancient well \n')
+                    uppity3 = uppity3+1
+                elif uppity3 == 5:
+                    uppity3 = None
+                    return False
+
+        with Listener(
+                on_press=on_press,
+                on_release=spacey) as listener:
+            listener.join()
+
+
+
+
+
 
 intro() #Introducing instructions, plays every time the game is started
 namecheck() #Asks the user's name, if name doesn't exist, calls upon the charcre function to create it
